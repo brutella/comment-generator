@@ -13,9 +13,9 @@ class HeaderDoc
 
     exit if found_method.nil? or found_method.empty?
   
-    result = '/*!\n'
-    result += ' @abstract <#(brief description)#>\n'
-    result += ' @discussion <#(comprehensive description)#>\n\n'
+    result = "/*!\n"
+    result += " @abstract <#(brief description)#>\n"
+    result += " @discussion <#(comprehensive description)#>\n\n"
     
     found_method = found_method.sub ';', ''
     param_descriptions = found_method.split ':'
@@ -27,11 +27,11 @@ class HeaderDoc
 
     param_descriptions.each do |possible_param|
     	param = possible_param.split(')').last.split(' ').first
-    	result += " @param #{param} <#(description of #{param})#>" + '\n'
+    	result += " @param #{param} <#(description of #{param})#>\n"
     end
 
     if return_value.eql?("void") == false
-      result += ' @result \n'
+      result += " @result \n"
     end
 
     result += '*/'
