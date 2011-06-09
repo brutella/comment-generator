@@ -1,5 +1,5 @@
 class HeaderDoc  
-  def self.from_method_header header_string
+  def self.from_method_definition header_string
     objc_method_regex = /
                 ^\s*                # Start of the line and optional space
                 [+-]\s*             # a plus or minus for method specifier

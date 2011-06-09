@@ -1,10 +1,10 @@
-# HeaderDoc Generator
-A ruby class to extract headerdoc documentation from Objective-C code. Currently supported are method definitions from the header.
+# Docu Generator
+A ruby class to extract documentation from Objective-C code. Currently supported is headerdoc documentation from method definitions.
 
 ## Example
 The call 
 
-    HeaderDoc.from_method_header '- (NSString*)fromString:(NSString*)aString;'
+    HeaderDoc.from_method_definition '- (NSString*)fromString:(NSString*)aString;'
 
 will result in the following headerdoc
 
