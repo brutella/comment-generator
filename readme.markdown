@@ -1,5 +1,5 @@
-# HeaderDoc Scripts
-This script extracts headerdoc compatible documentation out of Objective-C code. Currently supported are method definitions from the header.
+# HeaderDoc Generator
+A ruby class to extract headerdoc documentation from Objective-C code. Currently supported are method definitions from the header.
 
 ## Example
 The call 
