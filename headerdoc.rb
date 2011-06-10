@@ -1,5 +1,5 @@
 class HeaderDoc  
-  def self.from_method_definition header_string
+  def self.method_definition header_string
     objc_method_regex = /
                 ^\s*                # Start of the line and optional space
                 [+-]\s*             # a plus or minus for method specifier
@@ -21,7 +21,7 @@ class HeaderDoc
     param_descriptions = found_method.split ':'
     first_param = param_descriptions.shift # Remove first part
     return_value = first_param.split(')').first
-    start_index = return_value.index('(')+ 1
+    start_index = return_value.index('(') + 1
     length = return_value.length
     return_value = return_value[start_index...length]
 

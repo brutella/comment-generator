@@ -4,7 +4,7 @@ A ruby class to extract documentation from Objective-C code. Currently supported
 ## Example
 The call 
 
-    HeaderDoc.from_method_definition '- (NSString*)fromString:(NSString*)aString;'
+    HeaderDoc.method_definition '- (NSString*)fromString:(NSString*)aString;'
 
 will result in the following headerdoc
 
