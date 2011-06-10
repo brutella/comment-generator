@@ -69,7 +69,7 @@ class AppleDocGenerator
     end
 
     if return_value.eql?("void") == false
-      result += "\n @return <#(description of return value)#>\n"
+      result += " @return <#(description of return value)#>\n"
     end
 
     result += '*/'

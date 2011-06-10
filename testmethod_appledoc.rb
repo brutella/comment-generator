@@ -30,25 +30,31 @@ class AppleDocGeneratorMethodTest < Test::Unit::TestCase
   def test_method_return_object_no_param
     assert_equal(
       AppleDocGenerator.method_definition('- (NSString*)toString;'), 
-      "/** <#(brief description)#>\n\n <#(comprehensive description)#>\n\n\n @return <#(description of return value)#>\n*/")
+      "/** <#(brief description)#>\n\n <#(comprehensive description)#>\n\n @return <#(description of return value)#>\n*/")
+  end
+  
+  def test_method_return_object_one_param
+    assert_equal(
+      AppleDocGenerator.method_definition('- (NSString*)fromString:(NSString*)aString;'), 
+      "/** <#(brief description)#>\n\n <#(comprehensive description)#>\n\n @param aString <#(description of aString)#>\n @return <#(description of return value)#>\n*/")
   end
   
   def test_method_no_spacing
     assert_equal(
       AppleDocGenerator.method_definition('-(NSString*)toString;'), 
-      "/** <#(brief description)#>\n\n <#(comprehensive description)#>\n\n\n @return <#(description of return value)#>\n*/")
+      "/** <#(brief description)#>\n\n <#(comprehensive description)#>\n\n @return <#(description of return value)#>\n*/")
   end
   
   def test_method_full_of_spacing
     assert_equal(
       AppleDocGenerator.method_definition('- ( NSString *) toString ;'), 
-      "/** <#(brief description)#>\n\n <#(comprehensive description)#>\n\n\n @return <#(description of return value)#>\n*/")
+      "/** <#(brief description)#>\n\n <#(comprehensive description)#>\n\n @return <#(description of return value)#>\n*/")
   end
   
   def test_method_full_of_return_spacing
     assert_equal(
       AppleDocGenerator.method_definition('- ( NSString * )toString;'), 
-      "/** <#(brief description)#>\n\n <#(comprehensive description)#>\n\n\n @return <#(description of return value)#>\n*/")
+      "/** <#(brief description)#>\n\n <#(comprehensive description)#>\n\n @return <#(description of return value)#>\n*/")
   end
   
   def test_static_method
