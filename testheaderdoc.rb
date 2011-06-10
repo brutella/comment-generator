@@ -24,25 +24,25 @@ class TestHeaderDoc < Test::Unit::TestCase
   def test_method_return_object_no_param
     assert_equal(
       HeaderDoc.from_method_definition('- (NSString*)toString;'), 
-      "/*!\n @abstract <#(brief description)#>\n @discussion <#(comprehensive description)#>\n\n @result \n*/")
+      "/*!\n @abstract <#(brief description)#>\n @discussion <#(comprehensive description)#>\n\n @result <#(description of return value)#>\n*/")
   end
   
   def test_method_no_spacing
     assert_equal(
       HeaderDoc.from_method_definition('-(NSString*)toString;'), 
-      "/*!\n @abstract <#(brief description)#>\n @discussion <#(comprehensive description)#>\n\n @result \n*/")
+      "/*!\n @abstract <#(brief description)#>\n @discussion <#(comprehensive description)#>\n\n @result <#(description of return value)#>\n*/")
   end
   
   def test_method_full_of_spacing
     assert_equal(
       HeaderDoc.from_method_definition('- ( NSString *) toString ;'), 
-      "/*!\n @abstract <#(brief description)#>\n @discussion <#(comprehensive description)#>\n\n @result \n*/")
+      "/*!\n @abstract <#(brief description)#>\n @discussion <#(comprehensive description)#>\n\n @result <#(description of return value)#>\n*/")
   end
   
   def test_method_full_of_return_spacing
     assert_equal(
       HeaderDoc.from_method_definition('- ( NSString * )toString;'), 
-      "/*!\n @abstract <#(brief description)#>\n @discussion <#(comprehensive description)#>\n\n @result \n*/")
+      "/*!\n @abstract <#(brief description)#>\n @discussion <#(comprehensive description)#>\n\n @result <#(description of return value)#>\n*/")
   end
   
   def test_static_method

@@ -31,7 +31,7 @@ class HeaderDoc
     end
 
     if return_value.eql?("void") == false
-      result += " @result \n"
+      result += " @result <#(description of return value)#>\n"
     end
 
     result += '*/'

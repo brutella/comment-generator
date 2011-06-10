@@ -14,5 +14,5 @@ will result in the following headerdoc
      
      @param aString <#(description of aString)#>
 
-     @result
+     @result <#(description of return value)#>
     */
