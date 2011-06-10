@@ -1,16 +1,30 @@
 class AppleDocGenerator
   def self.parse_header header_string
+    appledoc_start_regex = /
+                \/\*\*
+                /x
+                
     new_header_string = ""
     
+    already_documented = false
     header_string.each_line do |line|
+      already_documented = already_documented || ! line[appledoc_start_regex].nil?
       docu = AppleDocGenerator.method_definition line
       if docu
-        new_header_string += docu + "\n"
+        if already_documented
+          already_documented = false
+        else
+          new_header_string += docu + "\n"  
+        end
       end
       
       docu = AppleDocGenerator.class_definition line
       if docu
-        new_header_string += docu + "\n"
+        if already_documented
+          already_documented = false
+        else
+          new_header_string += docu + "\n"  
+        end
       end
       
       new_header_string += line
