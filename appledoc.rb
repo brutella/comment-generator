@@ -5,9 +5,14 @@ class AppleDoc
                 [+-]\s*             # a plus or minus for method specifier
                 \([^)]+\)           # the return type in brackets
                 ((?:\n|[^@{])*)     
-                (?m:[\s;]*)
-    			;                           
+                (?m:[\s;]*)                          
               /x                    # Ignore whitespaces between regex tokens
+              
+    # TODO: use param regex
+    objc_param_regex = /
+              :\s*\([^)]\)
+              \s*[a-zA-Z].+
+              /x
               
     found_method = header_string[objc_method_regex]
 
@@ -40,7 +45,7 @@ class AppleDoc
     objc_class_regex = /
                 ^\s*                # Start of the line and optional space
                 \@interface\s+      # interface declaration
-                [a-zA-Z]+\s*        # class name
+                [a-zA-Z].+\s*        # class name
                 /x
     found_class = class_string[objc_class_regex]
     return nil if found_class.nil? or found_class.empty?

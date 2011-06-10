@@ -1,12 +1,14 @@
 # Docu Generator
-A ruby class to extract documentation from Objective-C code. Currently supported is headerdoc documentation from method definitions.
+A ruby class to extract documentation from Objective-C code. Currently supported is [appledoc](https://github.com/tomaz/appledoc) documentation for Objective-C class and method definitions.
 
-## Example
+## Examples
+
+### Method definition
 The call 
 
-    HeaderDoc.method_definition '- (NSString*)fromString:(NSString*)aString;'
+    AppleDoc.method_definition '- (NSString*)fromString:(NSString*)aString;'
 
-will result in the following headerdoc
+will result in the following appledoc
 
     /*!
      @abstract <#(brief description)#>

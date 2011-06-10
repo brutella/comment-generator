@@ -15,6 +15,12 @@ class AppleDocMethodTest < Test::Unit::TestCase
       "/** <#(brief description)#>\n <#(comprehensive description)#>\n\n @param integer <#(description of integer)#>\n @param float <#(description of float)#>\n*/")
   end
   
+  def test_method_no_returnvalue_two_param_no_semicolon
+    assert_equal(
+      AppleDoc.method_definition('- (void)fooMethod:(NSInteger)integer float:(CGFfloat)float'), 
+      "/** <#(brief description)#>\n <#(comprehensive description)#>\n\n @param integer <#(description of integer)#>\n @param float <#(description of float)#>\n*/")
+  end
+  
   def test_method_no_returnvalue_no_param
     assert_equal(
       AppleDoc.method_definition('- (void)fooMethod;'), 
@@ -50,5 +56,6 @@ class AppleDocMethodTest < Test::Unit::TestCase
       AppleDoc.method_definition('+ (void)fooMethod;'), 
       "/** <#(brief description)#>\n <#(comprehensive description)#>\n\n*/")
   end
+  
   
 end
