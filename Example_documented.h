@@ -20,6 +20,7 @@
  <#(comprehensive description)#>
 
  @param settingsProvider <#(description of settingsProvider)#>
+
  @return <#(description of return value)#>
 */
 + (id)parserWithSettingsProvider:(id)settingsProvider;
@@ -29,6 +30,7 @@
  <#(comprehensive description)#>
 
  @param settingsProvider <#(description of settingsProvider)#>
+
  @return <#(description of return value)#>
 */
 - (id)initWithSettingsProvider:(id)settingsProvider;
