@@ -1,5 +1,25 @@
-class AppleDoc  
-  def self.method_definition header_string
+class AppleDocGenerator
+  def self.parse_header header_string
+    new_header_string = ""
+    
+    header_string.each_line do |line|
+      docu = AppleDocGenerator.method_definition line
+      if docu
+        new_header_string += docu + "\n"
+      end
+      
+      docu = AppleDocGenerator.class_definition line
+      if docu
+        new_header_string += docu + "\n"
+      end
+      
+      new_header_string += line
+    end
+    
+    return new_header_string
+  end
+  
+  def self.method_definition method_string
     objc_method_regex = /
                 ^\s*                # Start of the line and optional space
                 [+-]\s*             # a plus or minus for method specifier
@@ -14,7 +34,7 @@ class AppleDoc
               \s*[a-zA-Z].+
               /x
               
-    found_method = header_string[objc_method_regex]
+    found_method = method_string[objc_method_regex]
 
     return nil if found_method.nil? or found_method.empty?
   
@@ -45,12 +65,12 @@ class AppleDoc
     objc_class_regex = /
                 ^\s*                # Start of the line and optional space
                 \@interface\s+      # interface declaration
-                [a-zA-Z].+\s*        # class name
+                [a-zA-Z].+\s*\:        # class name
                 /x
     found_class = class_string[objc_class_regex]
     return nil if found_class.nil? or found_class.empty?
     
-    class_name = found_class.split(' ').at(1)
+    class_name = found_class.split(':').first.split(' ').at(1)
     
     result = "/** <#(brief description of #{class_name})#>\n\n"
     result += " <#(comprehensive description)#>\n\n"

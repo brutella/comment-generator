@@ -6,7 +6,7 @@ A ruby class to extract documentation from Objective-C code. Currently supported
 ### Method definition
 The call 
 
-    AppleDoc.method_definition '- (NSString*)fromString:(NSString*)aString;'
+    AppleDocGenerator.method_definition '- (NSString*)fromString:(NSString*)aString;'
 
 will result in the following appledoc
 
