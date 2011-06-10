@@ -1,4 +1,4 @@
-class HeaderDoc  
+class AppleDoc  
   def self.method_definition header_string
     objc_method_regex = /
                 ^\s*                # Start of the line and optional space
@@ -7,15 +7,14 @@ class HeaderDoc
                 ((?:\n|[^@{])*)     
                 (?m:[\s;]*)
     			;                           
-              /x
+              /x                    # Ignore whitespaces between regex tokens
               
     found_method = header_string[objc_method_regex]
 
-    exit if found_method.nil? or found_method.empty?
+    return nil if found_method.nil? or found_method.empty?
   
-    result = "/*!\n"
-    result += " @abstract <#(brief description)#>\n"
-    result += " @discussion <#(comprehensive description)#>\n\n"
+    result = "/** <#(brief description)#>\n"
+    result += " <#(comprehensive description)#>\n\n"
     
     found_method = found_method.sub ';', ''
     param_descriptions = found_method.split ':'
@@ -31,9 +30,25 @@ class HeaderDoc
     end
 
     if return_value.eql?("void") == false
-      result += " @result <#(description of return value)#>\n"
+      result += " @return <#(description of return value)#>\n"
     end
 
     result += '*/'
+  end
+  
+  def self.class_definition class_string
+    objc_class_regex = /
+                ^\s*                # Start of the line and optional space
+                \@interface\s+      # interface declaration
+                [a-zA-Z]+\s*        # class name
+                /x
+    found_class = class_string[objc_class_regex]
+    return nil if found_class.nil? or found_class.empty?
+    
+    class_name = found_class.split(' ').at(1)
+    
+    result = "/** <#(brief description of #{class_name})#>\n"
+    result += " <#(comprehensive description)#>\n\n"
+    result += "*/"
   end
 end
