@@ -11,7 +11,8 @@ The call
 will result in the following appledoc
 
     /** <#(brief description)#>
-      <#(comprehensive description)#>
+    
+     <#(comprehensive description)#>
      
      @param aString <#(description of aString)#>
 

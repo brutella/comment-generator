@@ -18,7 +18,7 @@ class AppleDoc
 
     return nil if found_method.nil? or found_method.empty?
   
-    result = "/** <#(brief description)#>\n"
+    result = "/** <#(brief description)#>\n\n"
     result += " <#(comprehensive description)#>\n\n"
     
     found_method = found_method.sub ';', ''
@@ -52,7 +52,7 @@ class AppleDoc
     
     class_name = found_class.split(' ').at(1)
     
-    result = "/** <#(brief description of #{class_name})#>\n"
+    result = "/** <#(brief description of #{class_name})#>\n\n"
     result += " <#(comprehensive description)#>\n\n"
     result += "*/"
   end
