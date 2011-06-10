@@ -10,11 +10,10 @@ The call
 
 will result in the following appledoc
 
-    /*!
-     @abstract <#(brief description)#>
-     @discussion <#(comprehensive description)#>
+    /** <#(brief description)#>
+      <#(comprehensive description)#>
      
      @param aString <#(description of aString)#>
 
-     @result <#(description of return value)#>
+     @return <#(description of return value)#>
     */
