@@ -1,4 +1,7 @@
 class AppleDocGenerator
+  attr_accessor :methods
+  attr_accessor :classes
+  
   def self.parse_header header_string
     appledoc_start_regex = /
                 \/\*\*
@@ -91,3 +94,72 @@ class AppleDocGenerator
     result += "*/"
   end
 end
+
+class CodeMethod
+  attr_accessor :definition
+  attr_accessor :name
+  attr_accessor :param_names
+  attr_accessor :param_types
+  attr_accessor :return_value
+end
+
+# - (NSString*) fromString:(NSString*)aString andFloat:(CGFloat)float
+class ObjCMethod < CodeMethod            
+  def initialize method_string
+    @definition = method_string
+    @param_names = Array.new
+    
+    @objc_method_regex = /
+                ^\s*                # Start of the line and optional space
+                [+-]\s*             # a plus or minus for method specifier
+                \([^)]+\)           # the return type in brackets
+                ((?:\n|[^@{])*)     
+                (?m:[\s;]*)                          
+              /x                    # Ignore whitespaces between regex tokens                
+    initialize_from_definition
+  end
+  
+  def initialize_from_definition
+    found_method = @definition[@objc_method_regex]
+
+    exit if found_method.nil? or found_method.empty?
+    
+    @name = @definition.scan(/([^\s^\(^\)]+\:)/).join
+    param_names = Array.new 
+    @definition.scan(/([^\)^\s^\(^\-^\+]+)\s/){ |temp| param_names << temp.shift }
+    @param_names = param_names
+    
+    param_types = Array.new    
+    @definition.scan(/\(([^\)]+)\)/).map { |temp| param_types << temp.shift }
+    @return_value = param_types.shift.to_s
+    @param_type = param_types
+    
+  end
+  
+  def get_comment_string
+    comment = 
+"/** <#(brief description)#>
+ <#(comprehensive description)#>
+";
+    params_comment = @param_names.count > 0 ? "\n" : ""
+    @param_names.each do |param|
+      params_comment += " @param #{param} <#(description of #{param})#>\n"
+    end
+    
+    if param_names.count > 0
+      comment += params_comment
+    end
+    
+    if @return_value.eql?("void") == false
+      comment += "\n @return <#(description of return value)#>\n"
+    end
+  
+    comment += "*/"
+  end
+end
+
+method = ObjCMethod.new "- (NSObject*)fromString:(NSString*)blub param2:(NSString*)anotherOne andAnotherOne:(int)blub"
+puts "definition: " + method.definition
+puts "return value: " + method.return_value
+puts "params: " + method.param_names.to_s
+puts method.get_comment_string
