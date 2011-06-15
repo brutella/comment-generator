@@ -1,4 +1,5 @@
-require_relative "../cgen"
+require "rubygems"
+require "commentgen"
 require "test/unit"
 
 class ObjCClassTest < Test::Unit::TestCase
