@@ -1,39 +1,38 @@
 class AppleDocGenerator
-  attr_accessor :methods
-  attr_accessor :classes
+  attr_accessor :entityClasses
   
-  def self.parse_header header_string
+  def initialize 
+    @entityClasses = Array.new
+    @entityClasses << :ObjCClass
+    @entityClasses << :ObjCMethod
+  end
+  
+  def parse_string string
     appledoc_start_regex = /
                 \/\*\*
                 /x
                 
-    new_header_string = ""
+    new_string = ""
     
     already_documented = false
-    header_string.each_line do |line|
+    string.each_line do |line|
       already_documented = already_documented || ! line[appledoc_start_regex].nil?
-      docu = AppleDocGenerator.method_definition line
-      if docu
-        if already_documented
-          already_documented = false
-        else
-          new_header_string += docu + "\n"  
+      @entityClasses.each do |entity_class|
+        begin
+          entity = Object.const_get(entity_class).new line
+          if already_documented
+            already_documented = false
+          else
+            new_string += entity.get_comment_string + "\n"  
+          end
+        rescue
         end
       end
-      
-      docu = AppleDocGenerator.class_definition line
-      if docu
-        if already_documented
-          already_documented = false
-        else
-          new_header_string += docu + "\n"  
-        end
-      end
-      
-      new_header_string += line
+            
+      new_string += line
     end
     
-    return new_header_string
+    return new_string
   end
   
   def self.method_definition method_string
@@ -95,59 +94,111 @@ class AppleDocGenerator
   end
 end
 
-class CodeMethod
+class CommentableEntity
+  attr_accessor :regex_representation
   attr_accessor :definition
+  attr_accessor :isDocumented
+  
+  def initialize string
+    @definition = string
+    @isDocumented = false
+  end
+  
+  def documented
+    @isDocumented
+  end
+  
+  def matches_string string
+    result = string[@regex_representation]
+    return false if result.nil? or result.empty?    
+    true
+  end
+  
+  def get_comment_string
+    raise NotImplementedError
+  end
+end
+
+class MethodEntity < CommentableEntity
   attr_accessor :name
   attr_accessor :param_names
   attr_accessor :param_types
   attr_accessor :return_value
 end
 
-# - (NSString*) fromString:(NSString*)aString andFloat:(CGFloat)float
-class ObjCMethod < CodeMethod            
-  def initialize method_string
-    @definition = method_string
-    @param_names = Array.new
+class ClassEntity < CommentableEntity
+  attr_accessor :name
+end
+
+class ObjCClass < ClassEntity
+                   # Ignore whitespaces between regex tokens
+    def initialize string
+      super
+      @regex_representation = /
+                  ^\s*                # Start of the line and optional space
+                  \@interface\s+      # Declare interface
+                  [a-zA-Z].+\s*\:        # class name
+                /x                   # Ignore whitespaces between regex tokens                
+      raise ArgumentError, "String doesn't contain an Objective-C method definition" if !matches_string(@definition)
+      
+      initialize_from_definition    
+    end
     
-    @objc_method_regex = /
-                ^\s*                # Start of the line and optional space
-                [+-]\s*             # a plus or minus for method specifier
-                \([^)]+\)           # the return type in brackets
-                ((?:\n|[^@{])*)     
-                (?m:[\s;]*)                          
-              /x                    # Ignore whitespaces between regex tokens                
+    def initialize_from_definition
+      @name = @definition.scan(/\s([a-zA-Z]+)\s*\:/).join
+    end
+    
+    def get_comment_string
+    comment = 
+"/** <#(brief description of #{@name})#>
+
+ <#(comprehensive description)#>
+*/"
+    end
+end
+
+class ObjCMethod < MethodEntity            
+  def initialize string
+    super
+    @regex_representation = /
+                 ^\s*                # Start of the line and optional space
+                 [+-]\s*             # a plus or minus for method specifier
+                 \([^)]+\)           # the return type in brackets
+                 ((?:\n|[^@{])*)     
+                 (?m:[\s;]*)                          
+               /x                    # Ignore whitespaces between regex tokens                
+               
+    raise ArgumentError, "String doesn't contain an Objective-C method definition" unless matches_string @definition
+    
     initialize_from_definition
   end
-  
   def initialize_from_definition
-    found_method = @definition[@objc_method_regex]
+    found_method = @definition[@regex_representation]
 
     exit if found_method.nil? or found_method.empty?
     
     @name = @definition.scan(/([^\s^\(^\)]+\:)/).join
     param_names = Array.new 
-    @definition.scan(/([^\)^\s^\(^\-^\+]+)\s/){ |temp| param_names << temp.shift }
+    @definition.scan(/\)([^\)^\s^\(^\-^\+^\;^\{^\:]+)/){ |temp| param_names << temp.shift }
+    param_names.shift # Remove name of first parameter
     @param_names = param_names
     
     param_types = Array.new    
     @definition.scan(/\(([^\)]+)\)/).map { |temp| param_types << temp.shift }
     @return_value = param_types.shift.to_s
-    @param_type = param_types
-    
+    @param_types = param_types
   end
-  
+ 
   def get_comment_string
     comment = 
 "/** <#(brief description)#>
+
  <#(comprehensive description)#>
 ";
-    params_comment = @param_names.count > 0 ? "\n" : ""
-    @param_names.each do |param|
-      params_comment += " @param #{param} <#(description of #{param})#>\n"
-    end
-    
-    if param_names.count > 0
-      comment += params_comment
+
+    if @param_types.length > 0
+        comment += "\n"
+        @param_names.each { |param| comment += " @param #{param} <#(description of #{param})#>\n" }
     end
     
     if @return_value.eql?("void") == false
@@ -156,10 +207,5 @@ class ObjCMethod < CodeMethod
   
     comment += "*/"
   end
-end
 
-method = ObjCMethod.new "- (NSObject*)fromString:(NSString*)blub param2:(NSString*)anotherOne andAnotherOne:(int)blub"
-puts "definition: " + method.definition
-puts "return value: " + method.return_value
-puts "params: " + method.param_names.to_s
-puts method.get_comment_string
+end

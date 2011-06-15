@@ -1,10 +1,10 @@
 load "appledoc.rb"
 require "test/unit"
 
-class AppleDocGeneratorClassTest < Test::Unit::TestCase
+class AppleDocClassTest < Test::Unit::TestCase
   def test_simple
     assert_equal(
-      AppleDocGenerator.class_definition('@interface MyClass : NSObject {'), 
-      "/** <#(brief description of MyClass)#>\n\n <#(comprehensive description)#>\n\n*/")
+      ObjCClass.new('@interface MyClass : NSObject {').get_comment_string, 
+      "/** <#(brief description of MyClass)#>\n\n <#(comprehensive description)#>\n*/")
   end
 end

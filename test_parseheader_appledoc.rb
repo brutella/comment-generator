@@ -12,20 +12,18 @@ class AppleDocGeneratorClassTest < Test::Unit::TestCase
 @end"
     
     assert_equal(
-       AppleDocGenerator.parse_header(header), 
+       AppleDocGenerator.new.parse_string(header), 
 "// Somme comments here
 
 /** <#(brief description of MyClass)#>
 
  <#(comprehensive description)#>
-
 */
 @interface MyClass:NSObject{}
 
 /** <#(brief description)#>
 
  <#(comprehensive description)#>
-
 */
 - (void)aMethod;
 @end")
@@ -44,13 +42,12 @@ class AppleDocGeneratorClassTest < Test::Unit::TestCase
 @end"
     
     assert_equal(
-       AppleDocGenerator.parse_header(header), 
+       AppleDocGenerator.new.parse_string(header), 
 "// Somme comments here
 
 /** <#(brief description of MyClass)#>
 
  <#(comprehensive description)#>
-
 */
 @interface MyClass:NSObject{}
 
@@ -65,7 +62,7 @@ class AppleDocGeneratorClassTest < Test::Unit::TestCase
     
     file = File.open("Example.h", "r")
     header = file.read
-    header_documented = AppleDocGenerator.parse_header(header)
+    header_documented = AppleDocGenerator.new.parse_string(header)
 
     if File.exists?("Example_documented.h")
       file = File.open("Example_documented.h", "r")
