@@ -1,4 +1,4 @@
-load "appledoc.rb"
+require_relative "appledoc"
 require "test/unit"
 
 class AppleDocGeneratorClassTest < Test::Unit::TestCase

@@ -2,7 +2,7 @@ load "appledoc.rb"
 require "test/unit"
 
 
-class AppleDocGeneratorMethodTest < Test::Unit::TestCase
+class ObjectiveCMethodTest < Test::Unit::TestCase
   def test_method_no_returnvalue_one_param
     assert_equal(
       ObjCMethod.new('- (void)fooMethod:(int)blub;').get_comment_string, 

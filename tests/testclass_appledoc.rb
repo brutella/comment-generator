@@ -1,7 +1,7 @@
 load "appledoc.rb"
 require "test/unit"
 
-class AppleDocClassTest < Test::Unit::TestCase
+class ObjCClassTest < Test::Unit::TestCase
   def test_simple
     assert_equal(
       ObjCClass.new('@interface MyClass : NSObject {').get_comment_string, 
