@@ -1,4 +1,4 @@
-load "appledoc.rb"
+require_relative "../cgen"
 require "test/unit"
 
 class ObjCClassTest < Test::Unit::TestCase
