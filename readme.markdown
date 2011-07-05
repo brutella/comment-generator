@@ -1,5 +1,5 @@
-# Docu Generator
-A ruby class to extract documentation from Objective-C code. Currently supported is [appledoc](https://github.com/tomaz/appledoc) documentation for Objective-C class and method definitions.
+# Comment Generator
+A ruby class that generates comments from Objective-C code. Currently supported is [appledoc](https://github.com/tomaz/appledoc) documentation for Objective-C class and method definitions.
 
 ## Use in Xcode
 
