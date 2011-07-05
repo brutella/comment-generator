@@ -1,5 +1,5 @@
-require_relative "lib/objc_class"
-require_relative "lib/objc_method"
+require_relative "objc_class"
+require_relative "objc_method"
 
 class CommentGen
   attr_accessor :entityClasses
