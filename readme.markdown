@@ -3,7 +3,7 @@ A ruby class to extract documentation from Objective-C code. Currently supported
 
 ## Use in Xcode
 
-Add a build script phase to a build target add the following lines to add comments to all header files which include Objective-C classes and methods
+Add a build script phase to a build target and add the following lines. This will add comments to all header files which include Objective-C classes and methods.
 
     require "rubygems"
 	require "commentgen"
