@@ -1,9 +1,9 @@
 # Comment Generator
-A ruby class that generates comments from Objective-C code. Currently supported is [appledoc](https://github.com/tomaz/appledoc) documentation for Objective-C class and method definitions.
+A ruby class that generates comment templates from Objective-C code. Currently supported is [appledoc](https://github.com/tomaz/appledoc) documentation for Objective-C class and method definitions.
 
 ## Use in Xcode
 
-Add a build script phase to a build target and add the following lines. This will add comments to all header files which include Objective-C classes and methods.
+Add a build script phase to a build target and add the following lines. This will add comment templates to all header files which include Objective-C classes and methods.
 
     require "rubygems"
 	require "commentgen"
