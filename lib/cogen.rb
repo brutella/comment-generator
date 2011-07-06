@@ -1,7 +1,7 @@
 require_relative "objc_class"
 require_relative "objc_method"
 
-class CommentGen
+class Cogen
   attr_accessor :entityClasses
   
   def initialize 

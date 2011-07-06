@@ -1,5 +1,5 @@
 require "rubygems"
-require "commentgen"
+require "cogen"
 require "test/unit"
 
 

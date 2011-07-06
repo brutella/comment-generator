@@ -1,8 +1,8 @@
 require "rubygems"
-require "commentgen"
+require "cogen"
 require "test/unit"
 
-class CommentGenClassTest < Test::Unit::TestCase
+class CogenClassTest < Test::Unit::TestCase
   def test_simple
     header = 
 "// Somme comments here
@@ -13,7 +13,7 @@ class CommentGenClassTest < Test::Unit::TestCase
 @end"
     
     assert_equal(
-       CommentGen.new.parse_string(header), 
+       Cogen.new.parse_string(header), 
 "// Somme comments here
 
 /** <#(brief description of MyClass)#>
@@ -43,7 +43,7 @@ class CommentGenClassTest < Test::Unit::TestCase
 @end"
     
     assert_equal(
-       CommentGen.new.parse_string(header), 
+       Cogen.new.parse_string(header), 
 "// Somme comments here
 
 /** <#(brief description of MyClass)#>
@@ -63,7 +63,7 @@ class CommentGenClassTest < Test::Unit::TestCase
     
     file = File.open("Example.h", "r")
     header = file.read
-    header_documented = CommentGen.new.parse_string(header)
+    header_documented = Cogen.new.parse_string(header)
 
     if File.exists?("Example_documented.h")
       file = File.open("Example_documented.h", "r")

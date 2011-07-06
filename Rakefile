@@ -7,11 +7,11 @@ require 'rake/testtask'
 
 specification = Gem::Specification.new do |spec|
   spec.author = 'Matthias Hochgatterer'
-  spec.name = 'commentgen'
+  spec.name = 'cogen'
   spec.version = '0.0.2'
   spec.summary = 'A ruby based comment generator'
   spec.files = FileList['lib/**/*.rb', 'bin/*', '[A-Z]*', 'test/**/*'].to_a
-  spec.executables = ['commentgen']
+  # spec.executables = ['cogen']
 end
 
 Rake::GemPackageTask.new(specification) do |package| 

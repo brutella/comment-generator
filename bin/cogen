@@ -3,5 +3,5 @@
 lib = File.expand_path(File.dirname(__FILE__) + '/../lib')
 $LOAD_PATH.unshift(lib) if File.directory?(lib) && !$LOAD_PATH.include?(lib)
 
-require 'commentgen'
-puts CommentGen.new.parse_string(ARGV[0])
+require 'cogen'
+puts Cogen.new.parse_string(ARGV[0])
