@@ -6,7 +6,7 @@ A ruby class that generates comment templates from Objective-C code. Currently s
 Add a build script phase to a build target and add the following lines. This will add comment templates to all header files from the *./Classes* directory which include Objective-C classes and methods.
 
     require "rubygems"
-	require "commentgen"
+	require "cogen"
 
 	Dir[File.join(ENV['SRCROOT'], "Classes", "**/*.h")].each do |filepath|
 	    	next if File.directory?(filepath)
