@@ -1,6 +1,15 @@
-require_relative 'method_entity'
+require_relative 'base/method_entity'
+require_relative "doxygen/doxygen"
 
-class ObjCMethod < MethodEntity            
+class ObjCMethod < MethodEntity    
+  include DoxygenMethodComment
+  
+  # Doxygen comment
+  def self.maybeCommentString? string
+    doxygen_start_regex = /\/\*\*/
+    return !string[doxygen_start_regex].nil?                
+  end
+  
   def initialize string
     super
     @regex_representation = /
@@ -11,7 +20,7 @@ class ObjCMethod < MethodEntity
                  (?m:[\s;]*)                          
                /x                    # Ignore whitespaces between regex tokens                
                
-    raise ArgumentError, "String doesn't contain an Objective-C method definition" unless matches_string @definition
+    raise ArgumentError, "String doesn't contain an Objective-C method definition" unless matches_with_string @definition
     
     initialize_from_definition
   end
@@ -31,24 +40,4 @@ class ObjCMethod < MethodEntity
     @return_value = param_types.shift.to_s
     @param_types = param_types
   end
- 
-  def get_comment_string
-    comment = 
-"/** <#(brief description)#>
-
- <#(comprehensive description)#>
-";
-
-    if @param_types.length > 0
-        comment += "\n"
-        @param_names.each { |param| comment += " @param #{param} <#(description of #{param})#>\n" }
-    end
-    
-    if @return_value.eql?("void") == false
-      comment += "\n @return <#(description of return value)#>\n"
-    end
-  
-    comment += "*/"
-  end
-
 end

@@ -1,6 +1,8 @@
 class CommentableEntity
   attr_accessor :regex_representation
   attr_accessor :definition
+  attr_accessor :possible_comments
+  # TODO: needed?
   attr_accessor :isDocumented
   
   def initialize string
@@ -12,7 +14,7 @@ class CommentableEntity
     @isDocumented
   end
   
-  def matches_string string
+  def matches_with_string string
     result = string[@regex_representation]
     return false if result.nil? or result.empty?    
     true

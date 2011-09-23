@@ -1,5 +1,4 @@
-require "rubygems"
-require "cogen"
+require_relative "../lib/cogen"
 require "test/unit"
 
 class CogenClassTest < Test::Unit::TestCase

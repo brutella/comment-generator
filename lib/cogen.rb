@@ -19,14 +19,15 @@ class Cogen
     
     already_documented = false
     string.each_line do |line|
-      already_documented = already_documented || ! line[appledoc_start_regex].nil?
       @entityClasses.each do |entity_class|
+        already_documented  = already_documented || Object.const_get(entity_class).maybeCommentString?(line)
+        
         begin
           entity = Object.const_get(entity_class).new line
           if already_documented
             already_documented = false
           else
-            new_string += entity.get_comment_string + "\n"  
+            new_string += entity.doxygen_comment_string + "\n"  
           end
         rescue
         end
