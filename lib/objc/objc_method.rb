@@ -1,5 +1,5 @@
-require_relative 'base/method_entity'
-require_relative "doxygen/doxygen"
+require_relative '../base/method_entity'
+require_relative "../doxygen/doxygen"
 
 class ObjCMethod < MethodEntity    
   include DoxygenMethodComment
@@ -10,8 +10,8 @@ class ObjCMethod < MethodEntity
     return !string[doxygen_start_regex].nil?                
   end
   
-  def initialize string
-    super
+  def initialize string, syntax
+    super string, syntax
     @regex_representation = /
                  ^\s*                # Start of the line and optional space
                  [+-]\s*             # a plus or minus for method specifier

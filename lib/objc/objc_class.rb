@@ -1,5 +1,5 @@
-require_relative "base/class_entity"
-require_relative "doxygen/doxygen"
+require_relative "../base/class_entity"
+require_relative "../doxygen/doxygen"
 
 class ObjCClass < ClassEntity
     include DoxygenClassComment
@@ -10,8 +10,8 @@ class ObjCClass < ClassEntity
       return !string[doxygen_start_regex].nil?                
     end
     
-    def initialize string
-      super
+    def initialize string, syntax
+      super string, syntax
       @regex_representation = /
                   ^\s*                # Start of the line and optional space
                   \@interface\s+      # Declare interface

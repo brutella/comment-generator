@@ -1,11 +1,12 @@
 class CommentableEntity
   attr_accessor :regex_representation
   attr_accessor :definition
-  attr_accessor :possible_comments
+  attr_accessor :comment_syntax
   # TODO: needed?
   attr_accessor :isDocumented
   
-  def initialize string
+  def initialize string, comment_syntax
+    @comment_syntax = comment_syntax
     @definition = string
     @isDocumented = false
   end
@@ -20,7 +21,7 @@ class CommentableEntity
     true
   end
   
-  def get_comment_string
+  def comment_string
     raise NotImplementedError
   end
 end

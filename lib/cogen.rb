@@ -1,5 +1,5 @@
-require_relative "objc_class"
-require_relative "objc_method"
+require_relative "objc/objc_class"
+require_relative "objc/objc_method"
 
 class Cogen
   attr_accessor :entityClasses

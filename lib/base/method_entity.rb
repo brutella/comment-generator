@@ -5,4 +5,8 @@ class MethodEntity < CommentableEntity
   attr_accessor :param_names
   attr_accessor :param_types
   attr_accessor :return_value
+  
+  def comment_string
+    @comment_syntax.string_for_method_entity self
+  end
 end
