@@ -2,12 +2,6 @@ require_relative "../base/class_entity"
 require_relative "../rdoc/rdoc"
 
 class RubyClass < ClassEntity
-    # Doxygen comment
-    def self.maybeCommentString? string
-      rdoc_start_regex = /\#/
-      return !string[rdoc_start_regex].nil?                
-    end
-    
     def initialize string, syntax
       super string, syntax
       

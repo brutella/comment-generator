@@ -1,12 +1,12 @@
 require_relative '../base/code'
-require_relative 'ruby_class'
-require_relative 'ruby_method'
+require_relative 'objc_class'
+require_relative 'objc_method'
 
-class RubyCode < Code
+class ObjCCode < Code
   def initialize code_string, comment_syntax
     entities = []
-    entities << :RubyClass
-    entities << :RubyMethod
+    entities << :ObjCClass
+    entities << :ObjCMethod
     
     super code_string, entities, comment_syntax
   end

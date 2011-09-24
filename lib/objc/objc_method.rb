@@ -2,8 +2,6 @@ require_relative '../base/method_entity'
 require_relative "../doxygen/doxygen"
 
 class ObjCMethod < MethodEntity    
-  include DoxygenMethodComment
-  
   # Doxygen comment
   def self.maybeCommentString? string
     doxygen_start_regex = /\/\*\*/

@@ -1,7 +1,7 @@
 require_relative "../lib/ruby/ruby_class"
 require "test/unit"
 
-class RubyClassTest < Test::Unit::TestCase
+class RubyClassRDoc < Test::Unit::TestCase
   def setup
     @rdoc_syntax = RDoc.new
   end
@@ -9,15 +9,19 @@ class RubyClassTest < Test::Unit::TestCase
   def test_simple
     assert_equal(
       RubyClass.new('class MyRubyClass ', @rdoc_syntax).comment_string, 
-"# MyRubyClass brief description
-# Comprehensive description")
+"# (MyRubyClass brief description)
+# 
+# (Comprehensive description)
+# ")
   end
   
   def test_simple_with_superclass
     assert_equal(
       RubyClass.new('class MyRubyClass < SuperClass', @rdoc_syntax).comment_string, 
-"# MyRubyClass brief description
-# Comprehensive description")
+"# (MyRubyClass brief description)
+# 
+# (Comprehensive description)
+# ")
   end
   
   def test_not_a_ruby_class_string

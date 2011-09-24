@@ -1,4 +1,4 @@
 #!/usr/bin/sh
 
 rake gem
-sudo gem install --local ./pkg/cogen-0.0.2.gem
+sudo gem install --local ./pkg/cogen-0.0.3.gem

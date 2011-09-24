@@ -1,15 +1,7 @@
 require_relative "../base/class_entity"
 require_relative "../doxygen/doxygen"
 
-class ObjCClass < ClassEntity
-    include DoxygenClassComment
-    
-    # Doxygen comment
-    def self.maybeCommentString? string
-      doxygen_start_regex = /\/\*\*/
-      return !string[doxygen_start_regex].nil?                
-    end
-    
+class ObjCClass < ClassEntity    
     def initialize string, syntax
       super string, syntax
       @regex_representation = /
