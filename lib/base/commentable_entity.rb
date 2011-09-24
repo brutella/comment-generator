@@ -6,8 +6,6 @@ class CommentableEntity
   attr_accessor :regex_representation
   attr_accessor :definition
   attr_accessor :comment_syntax
-  # TODO: needed?
-  attr_accessor :isDocumented
   
   def initialize string, comment_syntax
     @comment_syntax = comment_syntax
