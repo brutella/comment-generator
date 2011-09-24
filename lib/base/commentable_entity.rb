@@ -1,6 +1,7 @@
-# (CommentableEntity brief description)
+# An entity in a programming language which can be commented
 # 
-# (Comprehensive description)
+# Eg. classes or method of a specific programming language are
+# possible commentable entites.
 # 
 class CommentableEntity
   attr_accessor :regex_representation
@@ -13,11 +14,9 @@ class CommentableEntity
     @isDocumented = false
   end
   
-  # (matches_with_string brief description)
+  # Checks if a string matches the regex representation of the entity
   # 
-  # (Comprehensive description)
-  # 
-  # [string] 
+  # [string] The string which may represents this entity
   # 
   def matches_with_string string
     result = string[@regex_representation]
@@ -25,9 +24,10 @@ class CommentableEntity
     true
   end
   
-  # (comment_string brief description)
+  # Returns the comment for this entity
   # 
-  # (Comprehensive description)
+  # The generated comment is based on the comment syntax and the type of entity.
+  # Subclasses should implemented this method
   # 
   def comment_string
     raise NotImplementedError

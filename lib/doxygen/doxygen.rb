@@ -2,17 +2,15 @@ require_relative '../base/comment_syntax'
 require_relative '../base/class_entity'
 require_relative '../base/method_entity'
 
-# (DoxygenCommentSyntax brief description)
+# Doxygen comment syntax
 # 
-# (Comprehensive description)
+# Doxygen comments are generated based on the entity.
 # 
 class Doxygen < CommentSyntax
   
-  # (commentStart? brief description)
+  # Checks if a string is a start of a comment
   # 
-  # (Comprehensive description)
-  # 
-  # [string] 
+  # [string] A possible start string of a comment
   # 
   def commentStart? string
     doxygen_start_regex = /\/\*\*/
