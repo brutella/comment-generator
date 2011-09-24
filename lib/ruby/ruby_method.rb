@@ -6,13 +6,20 @@ require_relative "../rdoc/rdoc"
 class RubyMethod < MethodEntity
     attr_accessor :indentation
     
+    # (initialize brief description)
+    # 
+    # (Comprehensive description)
+    # 
+    # [string] 
+    # [syntax] 
+    # 
     def initialize string, syntax
       super string, syntax
       
       @regex_representation = /
                   ^\s*                # Start of the line and optional space
                   def\s+              # def
-                  [a-z][a-zA-Z0-9\_]*   # method name
+                  [a-z][a-zA-Z0-9\_\.]*\??   # method name
                   \s*(\()?            # space or bracket
                   \s*[[a-z][a-zA-Z0-9\_]*\s*\,]*
                   (\))?                # optional bracket 
@@ -24,9 +31,10 @@ class RubyMethod < MethodEntity
     
     def initialize_from_definition  
       @indentation = @definition.scan(/^(\s*)def/).join
-      @name = @definition.scan(/^\s*def\s+([a-z][a-zA-Z0-9\_]*)/).join
+      @name = @definition.scan(/^\s*def\s+([a-z][a-zA-Z0-9\_\.]*\??)/).join
       param_names = Array.new
       values = @definition.split " "
+
       while values.shift.eql?(@name) == false do
       end
       
@@ -39,8 +47,8 @@ class RubyMethod < MethodEntity
     def comment_string
       comment = @comment_syntax.string_for_method_entity self
       indented_comment = ""
+    
       comment.each_line{ |line| indented_comment << @indentation + line }
-
       indented_comment
     end
 end

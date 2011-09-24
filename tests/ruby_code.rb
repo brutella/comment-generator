@@ -7,4 +7,8 @@ class A
   def print
     puts string
   end
+  
+  def isValid? number
+    number.nil?
+  end
 end

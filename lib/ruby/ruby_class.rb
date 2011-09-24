@@ -1,7 +1,18 @@
 require_relative "../base/class_entity"
 require_relative "../rdoc/rdoc"
 
+# (RubyClassClassEntity brief description)
+# 
+# (Comprehensive description)
+# 
 class RubyClass < ClassEntity
+    # (initialize brief description)
+    # 
+    # (Comprehensive description)
+    # 
+    # [string] 
+    # [syntax] 
+    # 
     def initialize string, syntax
       super string, syntax
       

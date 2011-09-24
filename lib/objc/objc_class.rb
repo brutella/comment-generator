@@ -1,7 +1,18 @@
 require_relative "../base/class_entity"
 require_relative "../doxygen/doxygen"
 
+# (ObjCClassClassEntity brief description)
+# 
+# (Comprehensive description)
+# 
 class ObjCClass < ClassEntity    
+    # (initialize brief description)
+    # 
+    # (Comprehensive description)
+    # 
+    # [string] 
+    # [syntax] 
+    # 
     def initialize string, syntax
       super string, syntax
       @regex_representation = /

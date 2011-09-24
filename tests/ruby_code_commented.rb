@@ -21,4 +21,14 @@ class A
   def print
     puts string
   end
+  
+  # (isValid? brief description)
+  # 
+  # (Comprehensive description)
+  # 
+  # [number] 
+  #
+  def isValid? number
+    number.nil?
+  end
 end

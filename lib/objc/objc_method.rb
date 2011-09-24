@@ -1,13 +1,30 @@
 require_relative '../base/method_entity'
 require_relative "../doxygen/doxygen"
 
+# (ObjCMethodMethodEntity brief description)
+# 
+# (Comprehensive description)
+# 
 class ObjCMethod < MethodEntity    
-  # Doxygen comment
+
+  # (self.maybeCommentString? brief description)
+  # 
+  # (Comprehensive description)
+  # 
+  # [string] 
+  # 
   def self.maybeCommentString? string
     doxygen_start_regex = /\/\*\*/
     return !string[doxygen_start_regex].nil?                
   end
   
+  # (initialize brief description)
+  # 
+  # (Comprehensive description)
+  # 
+  # [string] 
+  # [syntax] 
+  # 
   def initialize string, syntax
     super string, syntax
     @regex_representation = /

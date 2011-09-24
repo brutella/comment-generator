@@ -6,15 +6,16 @@ Dir[File.join("lib", "**/*.rb")].each do |filepath|
         next if File.directory?(filepath)
         next if File.exists?(filepath) == false
 
+    puts "processing " << filepath
     file = File.open(filepath, "r")
     ruby_code = file.read
-    puts ruby_code
-    code_documented = RubyCode.new(ruby_code, @rdoc).parse_code
+    ruby = RubyCode.new(ruby_code, @rdoc)
+    ruby.parse_code
+    code_documented = ruby.generated_string
     next if ruby_code.hash == code_documented.hash
-
-    puts code_documented
-    # file = File.open(filepath, "w")
-    # file.write code_documented
-    # file.flush
-    # file.close
+    
+    file = File.open(filepath, "w")
+    file.write code_documented
+    file.flush
+    file.close
 end
