@@ -13,14 +13,6 @@ class CommentableEntity
     @isDocumented = false
   end
   
-  # (documented brief description)
-  # 
-  # (Comprehensive description)
-  # 
-  def documented
-    @isDocumented
-  end
-  
   # (matches_with_string brief description)
   # 
   # (Comprehensive description)
