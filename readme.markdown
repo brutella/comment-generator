@@ -1,5 +1,5 @@
 # Comment Generator
-A ruby class that generates comment templates from Objective-C code. Currently supported is [appledoc](https://github.com/tomaz/appledoc) documentation for Objective-C class and method definitions.
+A ruby classes that generates comment templates from source code. Currently supported are Objective-C and Ruby code, which can be commented with [doxygen](http://www.doxygen.org/) and [RDoc](http://rdoc.sourceforge.net/) documentation syntax respectively.
 
 ## Use in Xcode
 
